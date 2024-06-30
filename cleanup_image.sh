@@ -67,8 +67,6 @@ if [[ -d "${mount}" ]]; then
         # Can't use resizepart for shrinking with --script (parted bug#22167) => must rm then mkpart
         if [ "$rootfs_partoldend" -gt "$rootfs_partend" ]; then
             echo y | sudo parted ---pretend-input-tty "${loopdev}" unit B resizepart "${rootfs_partnum}" "${rootfs_partend}"
-            # parted --script "${loopdev}" rm "${rootfs_partnum}"
-            # parted --script "${loopdev}" unit B mkpart primary "${rootfs_partstart}" "${rootfs_partend}"
         else
             echo "Rootfs partition not resized as it was not shrunk"
         fi
