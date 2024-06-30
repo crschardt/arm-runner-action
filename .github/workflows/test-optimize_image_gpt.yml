@@ -1,4 +1,4 @@
-name: Test shrink_gpt_partition
+name: Test shrink_bootable_partition
 on:
   push:
     branches:
@@ -18,7 +18,7 @@ jobs:
         base_image: https://github.com/Joshua-Riek/ubuntu-rockchip/releases/download/v2.2.1/ubuntu-24.04-preinstalled-server-arm64-orangepi-5.img.xz
         optimize_image: yes
         commands: |
-            echo "Shrink GPT Partition"
+            echo "Shrink Bootable Partition"
     - name: Check image
       run: |
          parted --script ${{ steps.shrink.outputs.image }} print free | tail -n2 | head -n1 | grep -c "boot, esp"
