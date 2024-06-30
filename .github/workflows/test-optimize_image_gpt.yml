@@ -10,8 +10,6 @@ on:
 jobs:
   optimized:
     runs-on: ubuntu-latest
-    outputs:
-      imgsize: ${{ steps.compress.outputs.imgsize }}
     steps:
     - uses: actions/checkout@v4
     - uses: ./ # pguyot/arm-runner-action@HEAD
@@ -21,8 +19,8 @@ jobs:
         optimize_image: yes
         commands: |
             cat /dev/random > /rand || rm /rand
-    - name: Compress image
+    - name: Check image
       id: compress
       run: |
-         parted --script ${{ steps.optimized_gpt.outputs.image }} print free
+         parted --script ${{ steps.optimized_gpt.outputs.image }} print free | grep -c "boot, esp"
 
