@@ -1,4 +1,4 @@
-name: Test optimize_image_gpt
+name: Test shrink_gpt_partition
 on:
   push:
     branches:
@@ -13,13 +13,13 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: ./ # pguyot/arm-runner-action@HEAD
-      id: optimized_gpt
+      id: shrink
       with:
         base_image: https://github.com/Joshua-Riek/ubuntu-rockchip/releases/download/v2.2.1/ubuntu-24.04-preinstalled-server-arm64-orangepi-5.img.xz
         optimize_image: yes
         commands: |
-            echo "Optimize GPT Image"
+            echo "Shrink GPT Partition"
     - name: Check image
       run: |
-         parted --script ${{ steps.optimized_gpt.outputs.image }} print free | tail -n2 | head -n1 | grep -c "boot, esp"
+         parted --script ${{ steps.shrink.outputs.image }} print free | tail -n2 | head -n1 | grep -c "boot, esp"
 
