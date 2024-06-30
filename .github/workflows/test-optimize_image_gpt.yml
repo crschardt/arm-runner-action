@@ -22,5 +22,5 @@ jobs:
     - name: Check image
       id: compress
       run: |
-         parted --script ${{ steps.optimized_gpt.outputs.image }} print free | grep -c "boot, esp1"
+         parted --script ${{ steps.optimized_gpt.outputs.image }} print free | tail -n2 | head -n1 | grep -c "boot, esp"
 
