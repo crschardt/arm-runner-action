@@ -18,9 +18,8 @@ jobs:
         base_image: https://github.com/Joshua-Riek/ubuntu-rockchip/releases/download/v2.2.1/ubuntu-24.04-preinstalled-server-arm64-orangepi-5.img.xz
         optimize_image: yes
         commands: |
-            cat /dev/random > /rand || rm /rand
+            echo "Optimize GPT Image"
     - name: Check image
-      id: compress
       run: |
          parted --script ${{ steps.optimized_gpt.outputs.image }} print free | tail -n2 | head -n1 | grep -c "boot, esp"
 
